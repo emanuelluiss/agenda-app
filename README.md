@@ -37,7 +37,7 @@
 1. Clone o repositório
 
    ```sh
-   git clone https://github.com/github_username/repo_name.git
+   git clone https://github.com/emanuelluiss/agenda-app
    ```
 
 2. Abra a pasta onde o projeto foi clonado e instale os pacotes NPM
