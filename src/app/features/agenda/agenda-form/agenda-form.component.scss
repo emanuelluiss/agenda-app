@@ -1,0 +1,107 @@
+:host {
+  display: block;
+  width: 100%;
+
+  --p-inputtext-background: var(--p-surface-50);
+  --p-inputtext-border-color: var(--p-content-border-color);
+}
+
+form {
+  margin-top: 1rem;
+}
+
+.field {
+  display: flex;
+  flex-direction: column;
+  margin-bottom: 1.5rem;
+  gap: 0.5rem;
+
+  label {
+    font-weight: 600;
+    color: var(--p-text-muted-color);
+    font-size: 0.9rem;
+  }
+}
+
+.formgrid.grid {
+  display: flex;
+  flex-wrap: wrap;
+  margin-right: -1rem;
+  margin-left: -1rem;
+
+  .field {
+    padding-right: 1rem;
+    padding-left: 1rem;
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  .col-12 {
+    width: 100%;
+    flex: 0 0 100%;
+  }
+
+  @media (min-width: 768px) {
+    .field {
+        flex: 1 0 0%;
+    }
+    .md\:col-6 { width: 50%; flex: 0 0 50%; }
+    .md\:col-4 { width: 33.333%; flex: 0 0 33.333%; }
+    .md\:col-8 { width: 66.666%; flex: 0 0 66.666%; }
+  }
+}
+
+:host ::ng-deep {
+  .p-datepicker {
+    width: 100%;
+    input { width: 100%; }
+  }
+
+  .p-select {
+    width: 100%;
+    display: flex;
+    .p-select-label { flex: 1; }
+  }
+
+  .p-autocomplete {
+    width: 100%;
+    .p-autocomplete-multiple-container {
+      width: 100%;
+      border-radius: var(--p-border-radius-md);
+    }
+    .p-autocomplete-input { width: 100%; }
+  }
+}
+
+small.p-error {
+  color: var(--p-red-500);
+  font-size: 0.8rem;
+  margin-top: 0.25rem;
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+
+  &::before {
+    content: '⚠';
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+  margin-top: 2rem;
+  padding-top: 1rem;
+  border-top: 1px solid var(--p-content-border-color);
+
+  @media (max-width: 768px) {
+    flex-direction: column-reverse;
+
+    p-button, button {
+      width: 100%;
+      ::ng-deep button {
+        width: 100%;
+      }
+    }
+  }
+}

@@ -1,0 +1,154 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()" class="flex flex-column gap-3 p-fluid">
+
+  <div class="formgrid grid">
+
+    <div class="field col-12 md:col-8">
+      <label for="title" class="font-bold"> Compromisso *</label>
+      <input pInputText id="title" formControlName="title" placeholder="Ex: Daily Scrum" />
+
+      @if (form.get('title')?.invalid && form.get('title')?.touched) {
+        <small class="p-error block">
+          Mínimo de 5 caracteres.
+        </small>
+      }
+    </div>
+
+    <div class="field col-12 md:col-4">
+      <label for="tipo" class="font-bold">Tipo *</label>
+      <p-select
+        inputId="tipo"
+        [options]="optionsTypes"
+        formControlName="type"
+        placeholder="Selecione..."
+        appendTo="body"
+        styleClass="w-full">
+      </p-select>
+    </div>
+
+  </div>
+
+  <div class="formgrid grid">
+
+    <div class="field col-12 md:col-6">
+      <label for="startDate" class="font-bold">Início *</label>
+      <p-datepicker
+        inputId="startDate"
+        formControlName="startDate"
+        [showTime]="true"
+        dateFormat="dd/mm/yy"
+        appOnlyDateChars
+        appendTo="body"
+        styleClass="w-full"
+        inputStyleClass="w-full">
+      </p-datepicker>
+
+      @if (form.get('startDate')?.hasError('pastDate') && form.get('startDate')?.touched) {
+        <small class="p-error block">
+          A data não pode ser no passado.
+        </small>
+      }
+
+      @if (form.get('startDate')?.hasError('businessHours') && form.get('startDate')?.touched) {
+        <small class="p-error block">
+          Horário inválido. Permitido apenas entre 08:00 e 18:00.
+        </small>
+      }
+    </div>
+
+    <div class="field col-12 md:col-6">
+      <label for="endDate" class="font-bold">Fim *</label>
+      <p-datepicker
+        inputId="endDate"
+        formControlName="endDate"
+        [showTime]="true"
+        dateFormat="dd/mm/yy"
+        appOnlyDateChars
+        appendTo="body"
+        styleClass="w-full"
+        inputStyleClass="w-full">
+      </p-datepicker>
+
+      @if (form.hasError('invalidRange') && form.get('endDate')?.touched) {
+        <small class="p-error block">
+          Data Fim deve ser maior que Início.
+        </small>
+      }
+    </div>
+
+  </div>
+
+  <div class="field">
+    <label for="location" class="font-bold">
+      <i class="pi pi-map-marker"></i>
+      Local
+      @if (form.get('type')?.value === 'Reunião') {
+        <span>*</span>
+      }
+    </label>
+
+    <span class="p-input-icon-left w-full">
+      <p-autoComplete
+        formControlName="location"
+        placeholder="Ex: Sala de Reunião ou Google Meet"
+        [suggestions]="suggestionsLocals()"
+        (completeMethod)="searchLocation($event)"
+        styleClass="w-full"
+        inputStyleClass="w-full">
+      </p-autoComplete>
+    </span>
+
+    @if (form.get('location')?.invalid && form.get('location')?.touched) {
+      <small class="p-error block">
+        Local é obrigatório para Reuniões.
+      </small>
+    }
+  </div>
+
+  <div class="field">
+    <label for="participants" class="font-bold">Participantes (E-mails) *</label>
+
+    <p-autoComplete
+      inputId="participants"
+      formControlName="participants"
+      [multiple]="true"
+      [typeahead]="false"
+      placeholder="Ex: participante@email.com"
+      appendTo="body"
+      styleClass="w-full"
+      inputStyleClass="w-full"
+      (keydown)="handleKey($event)"
+      (onBlur)="handleBlur($event)">
+    </p-autoComplete>
+
+    @if (form.get('participants')?.hasError('required') && form.get('participants')?.touched) {
+      <small class="p-error block">
+        Adicione pelo menos um participante.
+      </small>
+    }
+
+    @if (form.get('participants')?.hasError('invalidEmail') && form.get('participants')?.touched) {
+      <small class="p-error block">
+        Algum e-mail está com formato inválido.
+      </small>
+    }
+  </div>
+
+  <div class="actions">
+    <button
+      pButton
+      type="button"
+      label="Cancelar"
+      class="p-button-text p-button-secondary"
+      (click)="cancelRequest.emit()">
+    </button>
+
+    <button
+      pButton
+      type="submit"
+      label="Salvar Compromisso"
+      class="p-button-primary"
+      [disabled]="form.invalid">
+    </button>
+  </div>
+
+</form>

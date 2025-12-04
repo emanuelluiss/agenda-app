@@ -1,0 +1,88 @@
+<div class="layout-container">
+
+  <div class="card toolbar-container">
+
+    <div class="toolbar-left">
+      <h2 class="title">Agenda</h2>
+      <span class="p-badge p-component pending-badge" pTooltip="Compromissos Pendentes">
+        {{ agendaState.totalPending() }}
+      </span>
+    </div>
+
+    <div class="toolbar-right">
+
+      <span class="p-input-icon-left search-wrapper">
+        <input
+          pInputText
+          type="text"
+          placeholder="Buscar..."
+          [ngModel]="agendaState.filters().text"
+          (ngModelChange)="agendaState.updateFilterText($event)" />
+      </span>
+
+      <p-select
+        [options]="filterOptions"
+        placeholder="Tipo"
+        styleClass="filter-select"
+        [ngModel]="agendaState.filters().type"
+        (ngModelChange)="agendaState.updateFilterType($event)">
+      </p-select>
+
+      <button
+        pButton
+        icon="pi pi-plus"
+        label="Novo"
+        (click)="isDialogVisible = true; selectedCommitment = undefined">
+      </button>
+    </div>
+
+  </div>
+
+  <div class="card calendar-card">
+    <full-calendar #calendar [options]="calendarOptions"></full-calendar>
+  </div>
+
+</div>
+
+<p-dialog
+  [(visible)]="isDialogVisible"
+  [header]="selectedCommitment ? 'Editar Agendamento' : 'Novo Agendamento'"
+  [modal]="true"
+  [style]="{width: '600px', maxWidth: '95vw'}"
+  [draggable]="false"
+  [resizable]="false">
+
+  @if (isDialogVisible) {
+  <app-agenda-form
+    [startDateVar]="selectedDate"
+    [commitmentForEdit]="selectedCommitment!"
+    (saveRequest)="onSaveCommitment($event)"
+    (cancelRequest)="isDialogVisible = false">
+  </app-agenda-form>
+  }
+
+  <ng-template pTemplate="footer">
+    @if (selectedCommitment) {
+    <div class="flex justify-content-between align-items-center mt-3">
+      <button
+        pButton
+        type="button"
+        label="Excluir Compromisso"
+        class="p-button-danger p-button-text"
+        (click)="confirmDeletion()">
+      </button>
+    </div>
+  }
+  </ng-template>
+
+</p-dialog>
+
+<app-confirmation-modal
+  [(visible)]="isDeleteModalVisible"
+  title="Confirmar Exclusão"
+  [message]="deleteMessage()"
+  textoBotaoConfirmar="Sim, deletar"
+  tipoBotaoConfirmar="danger"
+  (confirmModal)="executeDeletion()">
+</app-confirmation-modal>
+
