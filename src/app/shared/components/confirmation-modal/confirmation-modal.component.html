@@ -1,0 +1,32 @@
+<p-dialog
+  [visible]="visible()"
+  (visibleChange)="visible.set($event)"
+  [header]="title()"
+  [modal]="true"
+  [draggable]="false"
+  [resizable]="false"
+  [style]="{ width: '450px' }"
+  (onHide)="onCancel()">
+
+  <div class="flex align-items-center justify-content-center">
+    <i class="pi pi-exclamation-triangle mr-3" style="font-size: 2rem; color: var(--orange-500)"></i>
+    <span class="text-xl">{{ message() }}</span>
+  </div>
+
+  <ng-template pTemplate="footer">
+    <p-button
+      [label]="cancelButtonText()"
+      icon="pi pi-times"
+      [text]="true"
+      severity="secondary"
+      (onClick)="onCancel()">
+    </p-button>
+
+    <p-button
+      [label]="confirmButtonText()"
+      icon="pi pi-check"
+      [severity]="typeConfirmButton()"
+      (onClick)="onConfirm()">
+    </p-button>
+  </ng-template>
+</p-dialog>

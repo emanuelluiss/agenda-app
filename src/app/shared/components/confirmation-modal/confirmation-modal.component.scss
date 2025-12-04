@@ -1,0 +1,11 @@
+.text-xl {
+  padding-left: 10px;
+  vertical-align: middle;
+
+  @media (max-width: 576px) {
+    font-size: 1.1rem;
+    padding-left: 0.5rem;
+    display: block;
+    margin-top: 0.5rem;
+  }
+}
