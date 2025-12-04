@@ -1,5 +1,3 @@
-/* To learn more about Typescript configuration file: https://www.typescriptlang.org/docs/handbook/tsconfig-json.html. */
-/* To learn more about Angular compiler options: https://angular.dev/reference/configs/angular-compiler-options. */
 {
   "compileOnSave": false,
   "compilerOptions": {
@@ -18,6 +16,16 @@
     "target": "ES2022",
     "module": "ES2022"
   },
+  "include": [
+    "**/*.ts",
+    "**/*.cy.ts"
+  ],
+  // Mantém o cypress do build para não interferir com o jasmine
+  "exclude": [
+    "cypress",
+    "cypress.config.ts",
+    "**/*.cy.ts"
+  ],
   "angularCompilerOptions": {
     "enableI18nLegacyMessageIdFormat": false,
     "strictInjectionParameters": true,
