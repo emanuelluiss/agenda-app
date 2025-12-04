@@ -1,17 +1,52 @@
-# See https://docs.github.com/get-started/getting-started-with-git/ignoring-files for more about ignoring files.
-
-# Compiled output
+# ----------------------------------------------------------------------
+# 📁 Build output
+# ----------------------------------------------------------------------
 /dist
+/build
 /tmp
 /out-tsc
 /bazel-out
 
-# Node
+# Angular cache
+/.angular/cache
+
+# Coverage reports
+/coverage
+/coverage-final.json
+/.nyc_output
+
+# ----------------------------------------------------------------------
+# 📦 Node / Package Managers
+# ----------------------------------------------------------------------
 /node_modules
 npm-debug.log
 yarn-error.log
+pnpm-debug.log
 
-# IDEs and editors
+# Lockfiles (mantenha apenas o usado)
+package-lock.json
+# yarn.lock
+# pnpm-lock.yaml
+# bun.lockb
+
+# ----------------------------------------------------------------------
+# 🧪 Testes (Cypress / Karma)
+# ----------------------------------------------------------------------
+/cypress/screenshots
+/cypress/videos
+/cypress/downloads
+/test-results
+/karma-results
+
+# ----------------------------------------------------------------------
+# ⚙️ Docker
+# ----------------------------------------------------------------------
+/docker-data/
+*.pid
+
+# ----------------------------------------------------------------------
+# 🧰 IDEs e editores
+# ----------------------------------------------------------------------
 .idea/
 .project
 .classpath
@@ -26,17 +61,34 @@ yarn-error.log
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
-.history/*
 
-# Miscellaneous
-/.angular/cache
+# ----------------------------------------------------------------------
+# 🗂️ Miscellaneous
+# ----------------------------------------------------------------------
 .sass-cache/
-/connect.lock
-/coverage
+.history/
+.connect.lock
 /libpeerconnection.log
 testem.log
 /typings
 
-# System files
+# Logs
+*.log
+
+# TS incremental build
+*.tsbuildinfo
+
+# ----------------------------------------------------------------------
+# 🔐 Environment files
+# ----------------------------------------------------------------------
+.env
+.env.*
+.env.local
+.env.production
+.env.development
+
+# ----------------------------------------------------------------------
+# 🖥️ System files
+# ----------------------------------------------------------------------
 .DS_Store
 Thumbs.db
